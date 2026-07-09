@@ -1321,12 +1321,11 @@ export class CoffeeRushGame {
       carrying: 'none',
       wait: 0,
     });
-    this.employees += 1;
-    this.alert = `Hired employee ${this.employees}. They will automatically move coffee and packages.`;
+    this.alert = `Hired employee ${this.employees.length}. They will automatically move coffee and packages.`;
     this.updateCashPiles(true);
 
     if (this.hrLabel) {
-      this.updateLabelTexture(this.hrLabel, `${this.employees} EMPLOYEES`, 0x27ae60, 0xffffff, 1.6, 0.42);
+      this.updateLabelTexture(this.hrLabel, `${this.employees.length} EMPLOYEES`, 0x27ae60, 0xffffff, 1.6, 0.42);
     }
   }
 
@@ -1346,7 +1345,7 @@ export class CoffeeRushGame {
 
     this.cash -= this.pizzaUnlockCost;
     this.pizzaUnlocked = true;
-    this.pizzaRevenueTimer = 1.5;
+    this.pizzaTimer = 1.5;
     this.updatePizzaStationVisuals();
     this.updateCashPiles(true);
     this.alert = 'Pizza machine unlocked. Side income is now active.';

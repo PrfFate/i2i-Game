@@ -22,6 +22,7 @@ const initialUiState: CoffeeRushUiState = {
   packingLevel: 1,
   staffLevel: 1,
   employees: 0,
+  employeeLimit: 2,
   machineProgress: 0,
   packingProgress: 0,
   courierPatience: 0,
