@@ -45,7 +45,9 @@ const initialUiState: CoffeeRushUiState = {
 function App() {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const gameRef = useRef<CoffeeRushGame | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [ui, setUi] = useState<CoffeeRushUiState>(initialUiState);
+  const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
     if (!mountRef.current) return;
@@ -60,8 +62,46 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleInteraction = () => {
+      if (audioRef.current && audioRef.current.paused && !isMuted) {
+        audioRef.current.volume = 0.35;
+        audioRef.current.play().catch(() => {});
+      }
+    };
+    
+    // Play music on first interaction (browser policy)
+    window.addEventListener('click', handleInteraction, { once: true });
+    window.addEventListener('keydown', handleInteraction, { once: true });
+    
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+    };
+  }, [isMuted]);
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      if (isMuted) {
+        audioRef.current.play().catch(() => {});
+      } else {
+        audioRef.current.pause();
+      }
+    }
+    setIsMuted(!isMuted);
+  };
+
   return (
     <main className="game-shell">
+      <audio ref={audioRef} src="/cafe-bgm.mp3" loop />
+      
+      <button 
+        className="music-toggle"
+        onClick={toggleMute}
+      >
+        {isMuted ? '🔇 Music Off' : '🔊 Music On'}
+      </button>
+
       <div ref={mountRef} className="canvas-host" aria-label="Coffee Ready 3D game canvas" />
 
       <section className="cash-pill">
