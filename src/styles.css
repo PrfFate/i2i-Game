@@ -1,0 +1,348 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #9ed4f4;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #ffffff;
+}
+
+button,
+kbd {
+  font: inherit;
+}
+
+.game-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas-host,
+.canvas-host canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cash-pill {
+  position: absolute;
+  z-index: 8;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  grid-template-columns: 34px minmax(72px, auto);
+  align-items: center;
+  min-height: 48px;
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  border-radius: 8px;
+  background: #27ae60;
+  box-shadow:
+    inset 0 -5px 0 rgb(0 0 0 / 18%),
+    0 14px 30px rgb(31 52 74 / 22%);
+}
+
+.cash-pill span {
+  display: grid;
+  align-self: stretch;
+  place-items: center;
+  background: rgb(0 0 0 / 14%);
+  font-size: 1.05rem;
+  font-weight: 950;
+}
+
+.cash-pill strong {
+  padding: 0 16px 2px 12px;
+  font-size: 1.22rem;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+}
+
+.zone-menu {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  bottom: 22px;
+  width: min(390px, calc(100vw - 32px));
+  border: 4px solid #ffffff;
+  border-radius: 8px;
+  padding: 14px;
+  background: linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(238 246 250 / 94%));
+  box-shadow:
+    inset 0 -5px 0 rgb(31 52 74 / 7%),
+    0 18px 45px rgb(31 52 74 / 24%);
+  color: #1f3146;
+  transform: translateX(-50%);
+}
+
+.zone-menu__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.zone-menu__title span {
+  color: #2f80ed;
+  font-size: 0.88rem;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.zone-menu__title strong {
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: #2f80ed;
+  color: #ffffff;
+  font-size: 0.78rem;
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 16%);
+}
+
+.upgrade-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  border-top: 1px solid #d4e2ea;
+}
+
+.upgrade-row:first-of-type {
+  border-top: 0;
+}
+
+.upgrade-row span {
+  color: #536477;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.upgrade-row strong {
+  color: #1f3146;
+  font-size: 0.92rem;
+}
+
+kbd {
+  min-width: 30px;
+  border: 2px solid rgb(31 49 70 / 16%);
+  border-bottom-width: 4px;
+  border-radius: 7px;
+  padding: 3px 8px;
+  background: #ffffff;
+  color: #2f80ed;
+  font-weight: 950;
+  text-align: center;
+}
+
+.upgrade-row button {
+  border: 0;
+  border-radius: 7px;
+  padding: 7px 10px;
+  background: #27ae60;
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 18%);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.upgrade-row button:active {
+  transform: translateY(1px);
+}
+
+.menu-hint {
+  margin-top: 8px;
+  border-radius: 8px;
+  padding: 9px 10px;
+  background: #eef5f8;
+  color: #536477;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.toast {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 18px;
+  max-width: min(480px, calc(100vw - 220px));
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: rgb(31 49 70 / 74%);
+  box-shadow: 0 12px 28px rgb(31 52 74 / 18%);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 850;
+  line-height: 1.25;
+  text-align: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.game-over {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(31 49 70 / 48%);
+  backdrop-filter: blur(4px);
+}
+
+.game-over div {
+  width: min(430px, calc(100vw - 32px));
+  border: 4px solid #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  background: linear-gradient(180deg, #ffffff, #eef6fa);
+  box-shadow:
+    inset 0 -6px 0 rgb(31 52 74 / 8%),
+    0 24px 60px rgb(31 52 74 / 28%);
+  color: #1f3146;
+  text-align: center;
+}
+
+.game-over h1,
+.game-over p {
+  margin: 0;
+}
+
+.game-over h1 {
+  color: #eb5757;
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  line-height: 1;
+}
+
+.game-over p {
+  margin-top: 12px;
+  color: #536477;
+  line-height: 1.45;
+}
+
+.game-over button {
+  margin-top: 18px;
+  border: 3px solid #ffffff;
+  border-radius: 8px;
+  padding: 11px 18px;
+  background: #2f80ed;
+  box-shadow: inset 0 -4px 0 rgb(0 0 0 / 18%);
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 950;
+}
+
+.daily-tasks {
+  position: absolute;
+  z-index: 8;
+  top: 18px;
+  left: 18px;
+  width: min(320px, calc(100vw - 120px));
+  border: 4px solid #ffffff;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgb(255 255 255 / 96%), rgb(238 246 250 / 94%));
+  box-shadow:
+    inset 0 -5px 0 rgb(31 52 74 / 7%),
+    0 18px 45px rgb(31 52 74 / 24%);
+  color: #1f3146;
+  overflow: hidden;
+}
+
+.time-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: #2f80ed;
+  color: #ffffff;
+  box-shadow: inset 0 -3px 0 rgb(0 0 0 / 16%);
+}
+
+.time-header strong {
+  font-size: 0.95rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.time-header span {
+  font-size: 0.85rem;
+  font-weight: 850;
+  background: rgb(0 0 0 / 20%);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.task-body {
+  padding: 12px 14px;
+}
+
+.task-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.task-row span {
+  color: #536477;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.task-row strong {
+  font-size: 0.92rem;
+  color: #1f3146;
+}
+
+.task-row strong.success {
+  color: #27ae60;
+}
+
+.goal-met {
+  font-size: 0.82rem;
+  color: #27ae60;
+  font-weight: 950;
+  text-align: right;
+  margin-bottom: 8px;
+  margin-top: -4px;
+}
+
+.objective {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #d4e2ea;
+  color: #2f80ed;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+@media (max-width: 760px) {
+  .cash-pill {
+    top: 12px;
+    right: 12px;
+  }
+
+  .toast {
+    top: 72px;
+    max-width: calc(100vw - 24px);
+    border-radius: 8px;
+  }
+
+  .zone-menu {
+    bottom: 12px;
+  }
+}
