@@ -93,7 +93,7 @@ function App() {
 
   return (
     <main className="game-shell">
-      <audio ref={audioRef} src="/cafe-bgm.mp3" loop />
+      <audio ref={audioRef} src="cafe-bgm.mp3" loop />
       
       <button 
         className="music-toggle"
