@@ -77,7 +77,7 @@ function App() {
         <div className="task-body">
           <div className="task-row">
             <span>Daily Sales Goal:</span>
-            <strong className={ui.dailyGoalMet ? 'success' : ''}>${ui.dailyProgress} / ${ui.dailyGoalTarget}</strong>
+            <strong className={ui.dailyGoalMet ? 'success' : ''}>${ui.dailyRevenue} / ${ui.dailyGoalTarget}</strong>
           </div>
           {ui.dailyGoalMet && <div className="goal-met">Goal Met!</div>}
           <div className="objective">
