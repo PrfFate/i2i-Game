@@ -93,13 +93,13 @@ function App() {
 
   return (
     <main className="game-shell">
-      <audio ref={audioRef} src="cafe-bgm.mp3" loop />
+      <audio ref={audioRef} src={(import.meta as any).env.BASE_URL + "cafe-bgm.mp3"} loop />
       
       <button 
         className="music-toggle"
         onClick={toggleMute}
       >
-        {isMuted ? '🔇 Music Off' : '🔊 Music On'}
+        {isMuted ? '🔇 Play Music' : '🔊 Pause Music'}
       </button>
 
       <div ref={mountRef} className="canvas-host" aria-label="Coffee Ready 3D game canvas" />
